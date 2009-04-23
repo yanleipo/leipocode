@@ -1,0 +1,13 @@
+#!/bin/bash
+
+telnet <<END_ABC
+open 10.80.114.117 -l root
+ls
+END_ABC
+
+#ftp -inv 10.80.115.7 <<END_ABC
+#quote USER yanleipo
+#quote PASS guo_bing
+#ls
+#bye
+#END_ABC
