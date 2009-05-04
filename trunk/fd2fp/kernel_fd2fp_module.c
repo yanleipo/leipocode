@@ -13,6 +13,7 @@
 #include <linux/fcntl.h>
 #include <linux/cdev.h>      
 #include <linux/netdevice.h> 
+#include <linux/mount.h>
 
 #include "kernel_fd2fp_module.h"
 
@@ -21,7 +22,7 @@
 #define FD2FP_NAME           "fd2fp"
 
 #ifndef FD2FP_MAJOR
-#define FD2FP_MAJOR          0
+#define FD2FP_MAJOR          FD2FP_MAGIC_NUMBER
 #endif
 static unsigned int          majorNumber = FD2FP_MAJOR;
 
@@ -50,7 +51,7 @@ static int fd2fp_module_open (struct inode* inode, struct file* filp)
 {
   int minor = MINOR(inode->i_rdev);
 
-  printk( "module_open\n" );
+  printk( "module_open. Magic Number: 0x%x  MAJOR: 0x%x\n",FD2FP_MAGIC_NUMBER, FD2FP_MAJOR );
   filp->private_data = &fd2fpDevice[minor];
   return 0;
 }
@@ -66,6 +67,8 @@ static int fd2fp_module_ioctl(struct inode* inode, struct file* filp, unsigned i
   struct file*      fp;
   struct inode*     node;
   FD2FP_Device_t*   fd2fpDev;
+  int               major    = 0;
+  int               minor    = 0;
 
   if ( _IOC_TYPE(cmd) != FD2FP_MAGIC_NUMBER )
   {
@@ -90,7 +93,9 @@ static int fd2fp_module_ioctl(struct inode* inode, struct file* filp, unsigned i
       {
         fd2fpDev = fp->private_data;
         node     = fp->f_mapping->host;
-        printk( "fd: %d  (ID: %d  Name: %s)\n", fd, fd2fpDev->id, fd2fpDev->devName );
+        major    = imajor(node);
+        minor    = iminor(node);
+        printk( "fd: %d  (ID: %d  Name: %s) MAJOR: 0x%x MINOR: 0x%x\n", fd, fd2fpDev->id, fd2fpDev->devName, major, minor );
       }
       else
       {

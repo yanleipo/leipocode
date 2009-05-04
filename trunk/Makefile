@@ -27,6 +27,7 @@ LIST_CFLAGS    := -DENABLE_DEBUG
 # For FD2FP module
 # ---------------------------------------------------------------------------------
 export TOOLSET_BASE=/opt/STM/STLinux-2.3/devkit/sh4
+export CROSS_COMPILE=sh4-linux-
 
 FD2FP_DIR      := $(shell pwd)/fd2fp
 FD2FP_SRC      := $(FD2FP_DIR)/kernel_fd2fp_test.c
