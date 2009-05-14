@@ -9,9 +9,6 @@
 #define	O_APPEND	0x400
 */
 
-extern int inargc;
-extern char* inargv[];
-
 int example_DebugNCompilation(void);
 int example_Macros(void);
 int example_VariableArgFunctions(void);
@@ -21,3 +18,4 @@ int example_ParseIndex(void);
 int example_Task(void);
 int example_MPEG2Parser(void);
 int example_S64(void);
+int example_Rand(void);
