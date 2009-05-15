@@ -42,6 +42,14 @@ POLY_OBJS      := $(patsubst %.c, %.o, $(POLY_SRC))
 
 POLY_CFLAGS    := 
 
+# For DISPLAY_BINARY test.
+# -------------------------------------------------------------------------------
+DISPLAY_BINARY_SRC       := $(wildcard ./display_binary/*.c)
+
+DISPLAY_BINARY_OBJS      := $(patsubst %.c, %.o, $(DISPLAY_BINARY_SRC))
+
+DISPLAY_BINARY_CFLAGS    := 
+
 # ===========================================================================
 # 	BUILD STUFF
 # ===========================================================================
@@ -57,6 +65,8 @@ help:
 	@echo "make clean_fd2fp     - clean fd2fp code"
 	@echo "make build_poly      - build poly code"
 	@echo "make clean_poly      - clean poly code"
+	@echo "make build_display_binary    - build display_binary code"
+	@echo "make clean_display_binary    - clean display_binary code"
 
 all: help
 
@@ -111,6 +121,17 @@ clean_poly:
 
 $(POLY_OBJS):%.o:%.c
 	gcc $(POLY_CFLAGS) -c $< -o $@
+
+# Build rule for DISPLAY_BINARY 
+# -----------------------------
+build_display_binary: $(DISPLAY_BINARY_OBJS)
+	gcc $(DISPLAY_BINARY_CFLAGS) $(DISPLAY_BINARY_OBJS) -o $(OUTPUT)
+
+clean_display_binary:
+	rm -f $(OUTPUT) $(DISPLAY_BINARY_OBJS)
+
+$(DISPLAY_BINARY_OBJS):%.o:%.c
+	gcc $(DISPLAY_BINARY_CFLAGS) -c $< -o $@
 
 
 .PHONY: all clean
