@@ -34,6 +34,14 @@ FD2FP_SRC      := $(FD2FP_DIR)/kernel_fd2fp_test.c
 FD2FP_OBJS     := $(patsubst %.c, %.o, $(FD2FP_SRC))
 FD2FP_CFLAGS   := -lpthread
 
+# For POLYMORPHISM test.
+# -------------------------------------------------------------------------------
+POLY_SRC       := $(wildcard ./polymorphism/*.c)
+
+POLY_OBJS      := $(patsubst %.c, %.o, $(POLY_SRC))
+
+POLY_CFLAGS    := 
+
 # ===========================================================================
 # 	BUILD STUFF
 # ===========================================================================
@@ -47,6 +55,8 @@ help:
 	@echo "make clean_list      - clean linked list code"
 	@echo "make build_fd2fp     - build fd2fp code"
 	@echo "make clean_fd2fp     - clean fd2fp code"
+	@echo "make build_poly      - build poly code"
+	@echo "make clean_poly      - clean poly code"
 
 all: help
 
@@ -90,6 +100,17 @@ clean_fd2fp:
 
 $(FD2FP_OBJS):%.o:%.c
 	$(if $(TOOLSET_BASE),$(TOOLSET_BASE)/bin/)$(CROSS_COMPILE)gcc $(FD2FP_CFLAGS) -c $< -o $@
+
+# Build rule for POLYMORPHISM
+# ---------------------------
+build_poly: $(POLY_OBJS)
+	gcc $(POLY_CFLAGS) $(POLY_OBJS) -o $(OUTPUT)
+
+clean_poly:
+	rm -f $(OUTPUT) $(POLY_OBJS)
+
+$(POLY_OBJS):%.o:%.c
+	gcc $(POLY_CFLAGS) -c $< -o $@
 
 
 .PHONY: all clean
