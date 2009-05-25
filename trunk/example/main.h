@@ -19,3 +19,4 @@ int example_Task(void);
 int example_MPEG2Parser(void);
 int example_S64(void);
 int example_Rand(void);
+int example_Time(void);
