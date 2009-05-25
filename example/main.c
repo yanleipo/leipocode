@@ -14,6 +14,7 @@ int main(int argc, char** args){
 	example_Task();
 	example_S64();
         example_Rand();
+        example_Time();
 /* test*/
 	return 0;
 }   

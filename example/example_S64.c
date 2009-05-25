@@ -136,8 +136,8 @@ int example_S64(void)
 	a = 484003;
 	b = 860909416;
 	c = ((a-b)*1000)/1000;
-	printf("c=%u\n", c);
 #ifdef EXAMPLE_S64
+	printf("c=%u\n", c);
 	int int_pos[3]={0x1, 0x0FFFFFFF, 0x80000011};
 	long long seek_pos;
 	char str[256];

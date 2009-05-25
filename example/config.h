@@ -8,4 +8,5 @@
 //#define EXAMPLE_PARSEINDEX
 //#define EXAMPLE_TASK
 //#define EXAMPLE_S64
-#define EXAMPLE_RAND
+//#define EXAMPLE_RAND
+#define EXAMPLE_TIME
