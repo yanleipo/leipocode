@@ -1,0 +1,21 @@
+export CC=armv7-linux-gcc;
+export CXX=armv7-linux-g++;
+export AS=armv7-linux-as;
+export LD=armv7-linux-ld;
+export AR=armv7-linux-ar;
+export RANLIB=armv7-linux-ranlib;
+export NM=armv7-linux-nm;
+export STM_BASE_PREFIX=/home/yanleipo/rdk/gw/RDK2_Generic/ST/sdk2/tools/stlinux
+
+export PATH=$STM_BASE_PREFIX/host/bin:$STM_BASE_PREFIX/devkit/armv7/bin:$PATH
+export PKG_CONFIG=$STM_BASE_PREFIX/host/bin/pkg-config
+export PKG_CONFIG_PATH=$STM_BASE_PREFIX/devkit/armv7/target/usr/lib/pkgconfig
+export PKG_CONFIG_LIBDIR=$STM_BASE_PREFIX/devkit/armv7/target/usr/lib/pkgconfig
+export PKG_PREFIX_BASE=$STM_BASE_PREFIX/devkit/armv7/target/
+export PKG_CONFIG_SYSROOT_DIR=$STM_BASE_PREFIX/devkit/armv7/target/
+export LIBTOOL_PREFIX_BASE=$STM_BASE_PREFIX/armv7/target/
+
+autoreconf --verbose --force --install
+./configure --host=arm-cortex-linux-gnueabi --build=`./config.guess` --prefix=/usr
+make
+LIBTOOL_PREFIX_BASE=$STM_BASE_PREFIX/devkit/armv7/target/ PATH=$STM_BASE_PREFIX/host/bin:$STM_BASE_PREFIX/devkit/armv7/bin:$PATH make DESTDIR="$STM_BASE_PREFIX/devkit/armv7/target/" install

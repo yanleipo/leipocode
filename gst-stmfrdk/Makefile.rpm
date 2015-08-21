@@ -1,0 +1,8 @@
+SPEC?=SPECS/stm-noarchtarget-gst-apps.spec
+BUILDAREA?=$(PWD)/../
+
+-include $(BUILDAREA)/Makefile.rpm
+
+rpmpackage:
+	mkdir -p SOURCES &&\
+	git archive --format=tar --prefix=gst-apps/ HEAD | bzip2 --best > SOURCES/gst-apps.tar.bz2

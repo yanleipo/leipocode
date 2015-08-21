@@ -1,0 +1,12 @@
+export PATH=/opt/STM/STLinux-2.4/host/bin:/opt/STM/STLinux-2.4/devkit/sh4/bin:$PATH
+export PKG_CONFIG=/opt/STM/STLinux-2.4/host/bin/pkg-config
+export PKG_CONFIG_PATH=/opt/STM/STLinux-2.4/devkit/sh4/target/usr/lib/pkgconfig
+export PKG_CONFIG_LIBDIR=/opt/STM/STLinux-2.4/devkit/sh4/target/usr/lib/pkgconfig
+export PKG_PREFIX_BASE=/opt/STM/STLinux-2.4/devkit/sh4/target/
+export PKG_CONFIG_SYSROOT_DIR=/opt/STM/STLinux-2.4/devkit/sh4/target/
+export LIBTOOL_PREFIX_BASE=/opt/STM/STLinux-2.4/devkit/sh4/target/
+
+autoreconf --verbose --force --install
+./configure --host=sh4-linux --build=`./config.guess` --prefix=/usr
+make
+sudo LIBTOOL_PREFIX_BASE=/opt/STM/STLinux-2.4/devkit/sh4/target/ PATH=/opt/STM/STLinux-2.4/host/bin:/opt/STM/STLinux-2.4/devkit/sh4/bin:$PATH make DESTDIR="/opt/STM/STLinux-2.4/devkit/sh4/target/" install

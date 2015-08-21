@@ -1,0 +1,10 @@
+# files produced by autoreconf (automake)
+/Makefile.in
+
+# files produced by ./configure
+/Makefile
+/.deps
+
+# files produced by make (libtool)
+/*.o
+/*gst-apps

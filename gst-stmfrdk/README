@@ -1,0 +1,7 @@
+gst-apps examples :
+===================
+gst-apps filename.avi
+gst-apps filename.ts
+gst-apps filename.mp4
+gst apps rtsp://10.129.63.236:9342/mdc0.sdp
+gst-apps dvb://ChannelName
