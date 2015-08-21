@@ -14,7 +14,7 @@
 //#define FILE_SUPPORT
 //#define HTTPSRC_SUPPORT
 
-#define USE_MPEGTSDEMUX
+//#define USE_MPEGTSDEMUX
 
 #define ZAPPING_INTERVAL_IN_SEC 14
 

@@ -12,10 +12,8 @@
 #define CHAN1_URL "http://10.80.114.134:8080/vldms/tuner?ocap_locator=ocap://0x9D"
 #define CHAN2_URL "http://10.80.114.134:8080/vldms/tuner?ocap_locator=ocap://0x9E"
 #else
-//#define CHAN1_URL "http://10.80.114.232/dvbt_sub_ttx.ts"
-//#define CHAN2_URL "http://10.80.114.232/dvbt_sub_ttx.ts"
-#define CHAN1_URL "http://10.80.114.134:8080/vldms/tuner?ocap_locator=ocap://0x9D"
-#define CHAN2_URL "http://10.80.114.134:8080/vldms/tuner?ocap_locator=ocap://0x9E"
+#define CHAN1_URL "http://10.80.114.232/dvbt_sub_ttx.ts"
+#define CHAN2_URL "http://10.80.114.232/dvbt_sub_ttx.ts"
 #endif
 #endif
 
@@ -68,17 +66,17 @@ handle_channel_zapping (STGstPlayer * player, int loop)
 	while (zapping_cnt < loop) {
     /* set state to NULL */
 	  if (set_pipeline_state (player, GST_STATE_NULL) == FALSE) {
-		  printf ("failed to set state to NULL\n");
+		  g_print ("failed to set state to NULL\n");
 			return FALSE;
 		}
 	
 	  /* destroy pipeline */
 	  if (destroy_pipeline (player) == FALSE) {
-	    printf ("failed to destroy pipeline\n");
+	    g_print ("failed to destroy pipeline\n");
 	    return FALSE;
 	  }
 	
-	  printf ("=============> zapping count %d <==============\n", zapping_cnt);
+	  g_print ("=============> zapping count %d <==============\n", zapping_cnt);
 		
 		memset (uri_to_play, '\0', sizeof (uri_to_play));
 		if (zapping_cnt % 2 == 0) {
@@ -87,17 +85,17 @@ handle_channel_zapping (STGstPlayer * player, int loop)
 		  strcpy (uri_to_play, CHAN1_URL);
 		}
 		memcpy (player->uri, uri_to_play, strlen(uri_to_play));
-		printf ("Trying to play %s\n", player->uri);
+		g_print ("Trying to play %s\n", player->uri);
 	
 	  /* create pipeline */
 	  if (create_pipeline (player) == FALSE) {
-	    printf ("failed to create pipeline\n");
+	    g_print ("failed to create pipeline\n");
 	    return FALSE;
 	  }
 	
 	  /* set state to PLAYING */
 	  if (set_pipeline_state (player, GST_STATE_PLAYING) == FALSE) {
-		  printf ("failed to set state to PLAYING\n");
+		  g_print ("failed to set state to PLAYING\n");
 			return FALSE;
 		}
 		
@@ -120,29 +118,29 @@ process_input_key_from_keyboard (void *data)
 		
 		switch (c) {
 		  case 'q':
-			  printf ("quit main loop\n");
+			  g_print ("quit main loop\n");
 				g_main_loop_quit (main_loop);
 			  break;
 			case 'z':
-			  printf ("zapping robust test\n"); // more loops
+			  g_print ("zapping robust test\n"); // more loops
 				if (handle_channel_zapping (player, 100) == FALSE) {
-				  printf("failed to zapping\n");
+				  g_print("failed to zapping\n");
 				}
 				break;
 			case 'o':
-			  printf ("zapping robust test\n"); // more loops
+			  g_print ("zapping robust test\n"); // more loops
 				if (handle_channel_zapping (player, 999999) == FALSE) {
-				  printf("failed to zapping\n");
+				  g_print("failed to zapping\n");
 				}
 				break;
 			case 'k':
-			  printf ("zapping test\n"); // 1 loop only
+			  g_print ("zapping test\n"); // 1 loop only
 				if (handle_channel_zapping (player, 1) == FALSE) {
-				  printf("failed to zapping\n");
+				  g_print("failed to zapping\n");
 				}
 				break;				
 			default:
-			  printf ("unknown key no response\n");
+			  g_print ("unknown key no response\n");
 			  break;
 		}
 	}
@@ -156,15 +154,15 @@ main (gint argc, gchar * argv[])
 
 	STGstPlayer *player;
 	
-	printf ("****************\n");
-  printf ("GST-RDK v%s\n", GST_RDK_VERSION);
-  printf ("****************\n");
+	g_print ("****************\n");
+  g_print ("GST-RDK v%s\n", GST_RDK_VERSION);
+  g_print ("****************\n");
   	
-	printf ("Trying to play %s\n", uri_to_play);
+	g_print ("Trying to play %s\n", uri_to_play);
 	
   /* Init GStreamer */
   if (!gst_init_check (&argc, &argv, &err)) {
-    printf ("failed not initialize GStreamer: %s\n",
+    g_print ("failed not initialize GStreamer: %s\n",
         err ? err->message : "unknown error occurred");
     if (err) {
       g_error_free (err);
@@ -193,13 +191,13 @@ main (gint argc, gchar * argv[])
 	
 	/* create pipeline and start playback */
 	if (create_pipeline (player) == FALSE) {
-	  printf ("failed to create pipeline\n");
+	  g_print ("failed to create pipeline\n");
 	  return 1;
 	}
 	
 	/* set state to PLAYING */
 	if (set_pipeline_state (player, GST_STATE_PLAYING) == FALSE) {
-	  printf ("failed to start playback\n");
+	  g_print ("failed to start playback\n");
 		return 1;
 	}
 	
@@ -207,7 +205,7 @@ main (gint argc, gchar * argv[])
 	g_main_loop_run (player->main_loop);
 	
 	if (set_pipeline_state (player, GST_STATE_NULL) == FALSE) {
-	  printf ("failed to stop playback\n");
+	  g_print ("failed to stop playback\n");
 		return 1;
 	}
 	
@@ -221,7 +219,7 @@ main (gint argc, gchar * argv[])
 	
 	/* stop playback and destroy the pipeline */	
 	if (destroy_pipeline (player) == FALSE) {
-	  printf ("failed to destroy pipeline\n");
+	  g_print ("failed to destroy pipeline\n");
 	  return 1;
 	}
 	
